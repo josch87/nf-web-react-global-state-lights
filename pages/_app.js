@@ -47,6 +47,8 @@ const initialLights = [
 
 export default function App({ Component, pageProps }) {
   const [lights, setLights] = useState(initialLights);
+  const turnedOnLights = lights.filter((light) => light.isOn === true);
+  const sumTurnedOnLights = turnedOnLights.length;
 
   function handleToggle(lightId) {
     setLights(
@@ -54,12 +56,16 @@ export default function App({ Component, pageProps }) {
         light.id === lightId ? { ...light, isOn: !light.isOn } : light
       )
     );
-    // setIsOn((isOn) => !isOn);
   }
   return (
     <Layout>
       <GlobalStyle />
-      <Component {...pageProps} lights={lights} toggleLight={handleToggle} />
+      <Component
+        {...pageProps}
+        lights={lights}
+        toggleLight={handleToggle}
+        sumTurnedOnLights={sumTurnedOnLights}
+      />
     </Layout>
   );
 }
